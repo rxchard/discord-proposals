@@ -179,6 +179,8 @@ dependencies = [
 name = "discord-proposals"
 version = "0.1.0"
 dependencies = [
+ "serde",
+ "serde_json",
  "serenity",
  "tokio",
  "tracing",
