@@ -10,7 +10,9 @@ use serenity::{
             modal::ModalSubmitInteraction,
             InteractionResponseType,
         },
+        user::User,
     },
+    prelude::Mentionable,
     Result as SerenityResult,
 };
 
@@ -23,12 +25,15 @@ pub const INTERACT_ID_PROPOSAL_MODAL: &str = "interact_proposal_modal";
 
 async fn create_proposal(
     ctx: &Context,
+    creator: &User,
     text_input: String,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let channel_id = std::env::var("DISCORD_CHANNEL")?; // could add another data entry for environment variables
     let channel_id = ChannelId(channel_id.parse()?);
 
-    let proposal_message = channel_id.say(ctx, text_input).await?;
+    let proposal_message = channel_id
+        .say(ctx, format!("{}\n\n{}", text_input, creator.mention()))
+        .await?;
 
     // attach a thread
     let thread_id = util::bump_proposal_count(ctx, channel_id).await;
@@ -60,7 +65,7 @@ pub async fn handle_modal_submission(
         })
         .await?;
 
-        let message = match create_proposal(ctx, text_input).await {
+        let message = match create_proposal(ctx, &mci.user, text_input).await {
             Ok(_) => "Created your proposal successfully.",
             Err(_) => "An error occurred.",
         };
