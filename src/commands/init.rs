@@ -7,9 +7,10 @@ use serenity::{
 use crate::interact::proposal;
 
 #[command]
+#[required_permissions("ADMINISTRATOR")]
 pub async fn post_interact(ctx: &Context, message: &Message) -> CommandResult {
     proposal::create_message_in_channel(&ctx, &message.channel_id).await?;
-    message.delete(&ctx).await?;
+    let _ = message.delete(&ctx).await;
 
     Ok(())
 }

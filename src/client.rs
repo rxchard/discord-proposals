@@ -40,7 +40,7 @@ pub async fn start(token: String) -> Result<(), Box<dyn std::error::Error>> {
         | GatewayIntents::MESSAGE_CONTENT;
 
     let framework = StandardFramework::new()
-        .configure(|c| c.prefix("!"))
+        .configure(|c| c.prefix("r#"))
         .group(&GENERAL_GROUP);
 
     let mut client = Client::builder(token, intents)

@@ -2,6 +2,8 @@
 
 A simple discord bot that manages user generated proposals.
 
+Command: `r#post_interact`
+
 ## Required environment variables
 
 ```bash
