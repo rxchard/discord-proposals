@@ -115,6 +115,7 @@ pub async fn create_modal_response(
                                     .custom_id("proposal_input")
                                     .placeholder("Your proposal")
                                     .style(InputTextStyle::Paragraph)
+                                    .max_length(1950)
                                     .required(true)
                             })
                         })
