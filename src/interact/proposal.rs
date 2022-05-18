@@ -37,7 +37,7 @@ async fn create_proposal(
 
     // attach a thread
     let thread_id = util::bump_proposal_count(ctx, channel_id).await;
-    let thread_name = format!("[PalmP{}] Discussion", thread_id);
+    let thread_name = format!("[PalmIP-{}] Discussion", thread_id);
 
     channel_id
         .create_public_thread(ctx, proposal_message.id, |thr| {
