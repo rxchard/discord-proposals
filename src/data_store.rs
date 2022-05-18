@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Store {
+    #[serde(default)]
     pub channels: HashMap<u64, u64>,
 }
 
@@ -22,7 +23,7 @@ impl DataStore {
         // file or default, if the file does not exist then it will be created during the next save
         let file = match fs::read_to_string(path).await {
             Ok(file) => file,
-            Err(_) => String::from(""),
+            Err(_) => String::from("{}"),
         };
 
         Ok(Self {
